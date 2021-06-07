@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import { Table } from "react-bootstrap";
 
@@ -44,19 +45,19 @@ export class Home extends Component {
             <Table striped bordered hover size="sm">
             <thead>
               <tr>
-                  <th class="text-center">#</th>
-                  <th class="text-center">First Name</th>
-                  <th class="text-center">Middle Name</th>
-                  <th class="text-center">Last Name</th>
-                  <th class="text-center">Course</th>
-                  <th class="text-center">Year Level</th>
-                  <th class="text-center">Sitio</th>
-                  <th class="text-center">Barangay</th>
-                  <th class="text-center">Municipality</th>
-                  <th class="text-center">Province</th>
-                  <th class="text-center">Zipcode</th>
-                  <th class="text-center">Image</th>
-                  <th class="text-center text-uppercase">Actions</th>
+                  <th className="text-center">First Name</th>
+                  <th className="text-center">#</th>
+                  <th className="text-center">Middle Name</th>
+                  <th className="text-center">Course</th>
+                  <th className="text-center">Last Name</th>
+                  <th className="text-center">Year Level</th>
+                  <th className="text-center">Sitio</th>
+                  <th className="text-center">Barangay</th>
+                  <th className="text-center">Municipality</th>
+                  <th className="text-center">Province</th>
+                  <th className="text-center">Zipcode</th>
+                  <th className="text-center">Image</th>
+                  <th className="text-center text-uppercase">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -77,8 +78,8 @@ export class Home extends Component {
                             <td>{profile.zipcode}</td>
                             <td>{profile.image}</td>
                             <td>
-                                  <a href="/Edit" class="btn btn-warning btn-sm mr-5">Edit</a>
-                                  <button type="button" onClick={(event) => this.deleteProfile(event, profile.id)} class="btn btn-danger btn-sm">Delete</button>
+                                  <Link to={`/Edit/${profile.id}`} className="btn btn-warning btn-sm">Edit</Link>
+                                  <button type="button" onClick={(event) => this.deleteProfile(event, profile.id)} className="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                       )

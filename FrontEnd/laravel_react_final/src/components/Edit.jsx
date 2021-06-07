@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 export class Edit extends Component {
-    state = {
+     state = {
         fname: '',
         mname: '',
         lname: '',
@@ -13,7 +14,7 @@ export class Edit extends Component {
         municipality: '',
         province: '',
         zipcode: '',
-        image: ''
+        image: '',
     }
 
     handleInput = (e) => {
@@ -22,24 +23,49 @@ export class Edit extends Component {
         });
     }
 
-    saveProfile = async (e) => {
+    async componentDidMount() {
+        const profile_id = this.props.match.params.id;
+
+        const res = await axios.get(`http://127.0.0.1:8000/api/profiles/${profile_id}`);
+        if(res.data.status === 200)
+        {
+            this.setState({
+                fname: res.data.profile.fname,
+                mname: res.data.profile.mname,
+                lname: res.data.profile.lname,
+                course: res.data.profile.course,
+                year_level: res.data.profile.year_level,
+                sitio: res.data.profile.sitio,
+                barangay: res.data.profile.barangay,
+                municipality: res.data.profile.municipality,
+                province: res.data.profile.province,
+                zipcode: res.data.profile.zipcode,
+                image: res.data.profile.image,
+            });
+        }
+    }
+
+    updateProfile = async (e) => {
         e.preventDefault();
 
-        const res = await axios.put('http://127.0.0.1:8000/api/profiles/Edit', this.state);
+        const profile_id = this.props.match.params.id;
+        const res = await axios.put(`http://127.0.0.1:8000/api/profiles/${profile_id}`, this.state)
+
+        if(res.data.status === 200)
         {
-            console.log(res);
+            console.log(res.data.message);
             this.setState({
-                fname: '',
-                mname: '',
-                lname: '',
-                course: '',
-                year_level: '',
-                sitio: '',
-                barangay: '',
-                municipality: '',
-                province: '',
-                zipcode: '',
-                image: ''
+                 fname: '',
+                    mname: '',
+                    lname: '',
+                    course: '',
+                    year_level: '',
+                    sitio: '',
+                    barangay: '',
+                    municipality: '',
+                    province: '',
+                    zipcode: '',
+                    image: '',
             });
         }
     }
@@ -47,16 +73,16 @@ export class Edit extends Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
+                <div className="row justify-content-md-center">
+                    <div className="col-md-8">
                         <div className="card">
                             <div className="card-header">
-                                <h4>Update Profile
-                                    <a href="/" className="btn btn-primary btn-sm float-end">Back</a>
+                                <h4>Edit Profile
+                                    <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">
-                                <form onSubmit={this.saveProfile}>
+                                <form onSubmit={this.updateProfile}>
                                     <div className="form-group mb-3">
                                         <label>First Name</label>
                                         <input type="text" name="fname" onChange={this.handleInput} value={this.state.fname} className="form-control" />
@@ -103,7 +129,7 @@ export class Edit extends Component {
                                     </div>
                                     <div className="card-footer">
                                         <div className="pt-2">
-                                            <button type="submit" class="btn btn-primary btn-sm">Update Profile</button>
+                                            <button type="submit" className="btn btn-primary btn-sm">Update Profile</button>
                                         </div>
                                     </div>
                                 </form>

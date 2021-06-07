@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 export class Add extends Component {
@@ -13,7 +14,7 @@ export class Add extends Component {
         municipality: '',
         province: '',
         zipcode: '',
-        image: ''
+        image: '',
     }
 
     handleInput = (e) => {
@@ -25,9 +26,14 @@ export class Add extends Component {
     saveProfile = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post('http://127.0.0.1:8000/api/profiles/store', this.state);
+        const res = await axios.post('http://localhost:8000/api/profiles', this.state, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }); 
+        if(res.data.message === 200)
         {
-            console.log(res);
+            console.log(res.data.message);
             this.setState({
                 fname: '',
                 mname: '',
@@ -39,7 +45,7 @@ export class Add extends Component {
                 municipality: '',
                 province: '',
                 zipcode: '',
-                image: ''
+                image: '',
             });
         }
     }
@@ -47,16 +53,18 @@ export class Add extends Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
+                <div className="row justify-content-md-center">
+                    <div className="col-md-8">
                         <div className="card">
                             <div className="card-header">
                                 <h4>Add Profile
-                                    <a href="/" className="btn btn-primary btn-sm float-end">Back</a>
+                                    <Link to={'/'} className="btn btn-primary btn-sm float-end">Back</Link>
                                 </h4>
                             </div>
                             <div className="card-body">
+
                                 <form onSubmit={this.saveProfile}>
+                                    
                                     <div className="form-group mb-3">
                                         <label>First Name</label>
                                         <input type="text" name="fname" onChange={this.handleInput} value={this.state.fname} className="form-control" />
@@ -102,7 +110,7 @@ export class Add extends Component {
                                         <input type="text" name="image" onChange={this.handleInput} value={this.state.image} className="form-control" />
                                     </div>
                                     <div className="pt-3 px-2">
-                                        <button type="submit" class="btn btn-primary">Add Profile</button>
+                                        <button type="SUBMIT" className="btn btn-primary">Add Profile</button>
                                     </div>
                                 </form>
                             </div>

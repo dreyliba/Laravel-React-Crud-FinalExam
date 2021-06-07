@@ -20,5 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/profiles', 'AdminController@index');
 Route::get('/profiles/{id}', 'AdminController@findbyID');
 Route::put('/profiles/{id}', 'AdminController@updateProfile');
+Route::get('/profiles/{id}', 'AdminController@edit');
 Route::post('profiles', 'AdminController@store');
 Route::delete('profiles/{id}', 'AdminController@deletebyID');

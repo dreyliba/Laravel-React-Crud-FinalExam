@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Add from "./components/Add";
 import Edit from "./components/Edit";
@@ -16,13 +16,13 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <BrowserRouter>
+        <Router>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/Add" component={Add} />
-            <Route exact path="/Edit" component={Edit} />
+            <Route exact path="/Edit/:id" component={Edit} />
           </Switch>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }
